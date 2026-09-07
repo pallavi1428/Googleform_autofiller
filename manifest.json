@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Support Autofill Bridge",
+  "version": "1.1.0",
+  "description": "Capture values from any support tool (order ID, AWB, etc.) via right-click or keyboard shortcut, watch them fill in from a floating on-page HUD, then one-click fill matching Google Form fields.",
+  "permissions": ["storage", "contextMenus", "activeTab", "scripting", "notifications"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Support Autofill Bridge",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "capture_1": { "suggested_key": { "default": "Alt+1" }, "description": "Capture selection into field #1" },
+    "capture_2": { "suggested_key": { "default": "Alt+2" }, "description": "Capture selection into field #2" },
+    "capture_3": { "suggested_key": { "default": "Alt+3" }, "description": "Capture selection into field #3" },
+    "toggle_overlay": { "suggested_key": { "default": "Alt+Shift+H" }, "description": "Show/hide the floating HUD" },
+    "capture_4": { "description": "Capture selection into field #4 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_5": { "description": "Capture selection into field #5 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_6": { "description": "Capture selection into field #6 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_7": { "description": "Capture selection into field #7 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_8": { "description": "Capture selection into field #8 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_9": { "description": "Capture selection into field #9 (set a shortcut at chrome://extensions/shortcuts)" },
+    "capture_10": { "description": "Capture selection into field #10 (set a shortcut at chrome://extensions/shortcuts)" }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-capture.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
+      "css": ["overlay.css"],
+      "js": ["overlay.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://docs.google.com/forms/*"],
+      "js": ["lib/fuzzy.js", "content-autofill.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

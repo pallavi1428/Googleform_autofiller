@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Autofiller</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="shell">
+    <div class="panel main-panel">
+      <header>
+        <div class="title-row">
+          <img src="icons/icon32.png" width="22" height="22" alt="" />
+          <h1>Googleform Autofiller</h1>
+        </div>
+        <button id="manageToggle" class="manage-btn">Manage fields</button>
+      </header>
+
+      <p class="hint">
+        A floating HUD now lives on every page: select a value and press
+        <strong>Alt+1</strong>, <strong>Alt+2</strong>, <strong>Alt+3</strong>or right-click ▸ Capture
+        fields #4 and up need a one-time shortcut assigned at
+        <strong>chrome://extensions/shortcuts</strong>. <strong>Alt+Shift+H</strong>
+        shows/hides the HUD. Fixed fields fill themselves on every form, automatically.
+      </p>
+
+      <div id="fieldList" class="field-list"></div>
+
+      <footer>
+        <button id="fillBtn" class="primary-btn">Fill Google Form</button>
+        <button id="clearBtn" class="secondary-btn">Clear captured</button>
+      </footer>
+
+      <p id="statusMsg" class="status"></p>
+    </div>
+
+    <div id="managePanel" class="panel manage-panel hidden">
+      <div class="manage-panel-header">
+        <h2>Manage Fields</h2>
+        <button id="manageClose" class="close-btn" title="Close">&times;</button>
+      </div>
+
+      <div id="manageList" class="manage-list"></div>
+
+      <form id="addFieldForm" class="add-field-form">
+        <input id="newFieldLabel" type="text" placeholder="Field name (e.g. Order ID)" required />
+        <input id="newFieldAliases" type="text" placeholder="Aliases, comma separated (optional)" />
+
+        <div class="type-toggle">
+          <label class="type-option">
+            <input type="radio" name="fieldType" value="dynamic" checked />
+            Dynamic <span class="type-desc">capture per call (right-click or Alt+N)</span>
+          </label>
+          <label class="type-option">
+            <input type="radio" name="fieldType" value="fixed" />
+            Fixed <span class="type-desc">same value</span>
+          </label>
+        </div>
+
+        <input id="newFieldFixedValue" type="text" placeholder="Value (used every time)" class="hidden" />
+
+        <button type="submit" class="add-btn">+ Add Field</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

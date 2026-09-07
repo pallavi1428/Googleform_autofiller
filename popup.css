@@ -1,0 +1,499 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f6f6f8;
+  --panel: #ffffff;
+  --ink: #1c1c22;
+  --ink-dim: #6c6c78;
+  --ink-faint: #9a9aa5;
+
+  --border: #e5e5ea;
+  --border-strong: #d3d3db;
+
+  --accent: #3452d9;
+  --accent-hover: #2b44bd;
+  --accent-soft: #eef0fc;
+
+  --good: #178a4c;
+  --good-soft: #e4f6ec;
+
+  --danger: #d1373c;
+  --danger-soft: #fbe9ea;
+
+  --radius: 10px;
+  --radius-sm: 7px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.shell {
+  display: flex;
+  align-items: flex-start;
+}
+
+.panel {
+  width: 380px;
+  flex-shrink: 0;
+  background: var(--panel);
+}
+
+/* ---------- Main panel ---------- */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 8px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-row img {
+  border-radius: 6px;
+}
+
+h1 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.manage-btn {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 11px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.manage-btn:hover {
+  background: #f1f1f4;
+  border-color: var(--ink-faint);
+}
+
+.hint {
+  font-size: 11.5px;
+  color: var(--ink-dim);
+  margin: 0 16px 10px;
+  line-height: 1.45;
+  padding: 8px 10px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+}
+
+.hint strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.field-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 372px;
+  overflow-y: auto;
+}
+
+/* Field name and value sit side by side in one compact row.
+   A left accent bar on the name box shows at a glance whether
+   a value is ready to fill. */
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-row__label {
+  flex: 0 0 108px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: #fafafb;
+  transition: border-color 0.15s ease;
+}
+
+.field-row.has-value .field-row__label {
+  border-left-color: var(--good);
+}
+
+.field-row.is-empty .field-row__label {
+  border-left-color: var(--border-strong);
+}
+
+.field-row__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.type-chip {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8.5px;
+  font-weight: 800;
+  background: #eeeef1;
+  color: var(--ink-dim);
+}
+
+.type-chip.fixed {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.field-row__input {
+  flex: 1;
+  height: 32px;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 0 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.field-row__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field-row__input::placeholder {
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+
+.field-row__input--fixed {
+  background: #fafafb;
+  color: var(--ink-dim);
+}
+
+.empty-state {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  padding: 24px 4px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+footer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.primary-btn {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.primary-btn:hover {
+  background: var(--accent-hover);
+}
+
+.secondary-btn {
+  background: var(--panel);
+  color: var(--ink-dim);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 11px 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.secondary-btn:hover {
+  background: #f1f1f4;
+  color: var(--ink);
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-dim);
+  text-align: center;
+  margin: 0 16px 10px;
+  min-height: 14px;
+}
+
+/* ---------- Manage panel ---------- */
+
+.manage-panel {
+  border-left: 1px solid var(--border);
+  background: var(--panel);
+  max-height: 620px;
+  overflow-y: auto;
+}
+
+.manage-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.manage-panel h2 {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-dim);
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.close-btn:hover {
+  background: #f1f1f4;
+  color: var(--ink);
+}
+
+.manage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.manage-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 10px;
+  background: #fbfbfc;
+}
+
+.manage-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.manage-row-info .label-line {
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.manage-row-info .type-pill {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background: #eeeef1;
+  color: var(--ink-dim);
+}
+
+.manage-row-info .type-pill.fixed {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.manage-row-info .fixed-value-edit {
+  width: 100%;
+  margin-top: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-family: inherit;
+  background: var(--panel);
+}
+
+.manage-row-info .fixed-value-edit:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.remove-btn {
+  flex: 0 0 auto;
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: none;
+  border-radius: 7px;
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.add-field-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+
+.form-label span {
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+
+.add-field-form input[type="text"] {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.add-field-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Segmented control for Dynamic / Fixed */
+.type-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.type-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 8px 9px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.type-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.type-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.type-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.type-desc {
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  line-height: 1.35;
+}
+
+.type-option:has(input:checked) .type-name {
+  color: var(--accent);
+}
+
+.add-btn {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 10px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.add-btn:hover {
+  background: #000;
+}
