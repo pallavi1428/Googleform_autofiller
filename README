@@ -1,0 +1,71 @@
+# Google Form Autofiller
+
+Capture values from any support tool (Farzi, Uniware, Shiprocket, ClickPost, GoQuick, etc.)
+with a right-click, then fill matching Google Form fields with one click — no tab-switching,
+no retyping, no forms resetting your progress.
+
+## Two kinds of fields
+
+- **Dynamic** — changes every call (Order ID, AWB Number, Phone Number...). You capture it
+  fresh each time via right-click, then hit Fill.
+- **Fixed** — never changes (your name, team, department, a standard note...). You type the
+  value once in *Manage Fields*, and from then on it **fills itself automatically** on every
+  Google Form — on first load, after a refresh, and after "Submit another response" — no
+  click needed.
+
+## How it works
+
+1. **Define fields once** — ships with three dynamic fields (Order ID, AWB Number, Phone
+   Number). Add more, and mark any of them **Fixed** with a value, under *Manage fields*
+   (opens as a side panel next to the field list).
+2. **Capture dynamic values on any page** — select the value's text (or click into an input
+   that has it), right-click, choose **Capture as ▸ Order ID**. Saved instantly, with a toast
+   confirming it. Fixed fields don't appear in this menu — you only set their value once.
+3. **Fixed fields fill themselves** — the moment a Google Form (or a new blank one after
+   submitting) renders, any fixed field with a matching label is filled automatically, with
+   no click. Dynamic fields still need the **Fill Google Form** button, since their value is
+   different every time.
+4. **Fill Google Form** button fills both fixed and dynamic fields at once, fuzzy-matching
+   your field labels/aliases against the form's question labels (so "Order ID", "Order No.",
+   "Order Number" all match), and only touches free-text fields it's confident about —
+   dispatching real input/change events so Google Forms' own validation passes.
+5. Captured dynamic values persist across form resets, so submitting one form and opening
+   the next doesn't lose anything. "Clear captured" wipes dynamic values only — fixed
+   values are kept until you edit or remove them yourself.
+
+You can also edit or manually paste a value straight into the popup's field row (useful the
+first time, or if a page can't be scripted).
+
+## Install (unpacked, for testing/personal use)
+
+1. Unzip this folder somewhere permanent (don't delete after installing — Chrome loads
+   the extension from these files).
+2. Go to `chrome://extensions`.
+3. Turn on **Developer mode** (top right).
+4. Click **Load unpacked** and select this folder.
+5. Pin the extension (puzzle-piece icon → pin) for one-click access.
+
+> If this is a work laptop, IT may need to allow Developer Mode / unpacked extensions —
+> some MDM policies restrict this.
+
+## Notes on accuracy
+
+- Auto-fill only touches **short-answer and paragraph (free text)** questions — it
+  intentionally never clicks radio buttons, checkboxes, or dropdowns, since a wrong
+  auto-click there is worse than skipping a field.
+- Matching uses normalized text + Levenshtein similarity (threshold ~72% similarity), so
+  minor label differences ("AWB" vs "AWB Number" vs "Tracking ID" if added as an alias)
+  still match, but unrelated fields won't.
+- Every filled field gets a brief blue highlight so you can visually confirm what changed
+  before submitting — always give the form a glance before hitting submit.
+- Add aliases (comma-separated) per field in *Manage fields* to teach it your specific
+  forms' exact wording for even tighter matching.
+
+## Files
+
+- `manifest.json` — extension config (Manifest V3)
+- `background.js` — right-click menu + storage
+- `content-capture.js` — runs on all pages, remembers what you right-clicked
+- `content-autofill.js` — runs on Google Forms, does the matching + filling
+- `lib/fuzzy.js` — label normalization + Levenshtein similarity scoring
+- `popup.html/.css/.js` — the "box" UI showing captured values and the Fill button
