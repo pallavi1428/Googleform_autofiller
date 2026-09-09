@@ -69,3 +69,5 @@ first time, or if a page can't be scripted).
 - `content-autofill.js` — runs on Google Forms, does the matching + filling
 - `lib/fuzzy.js` — label normalization + Levenshtein similarity scoring
 - `popup.html/.css/.js` — the "box" UI showing captured values and the Fill button
+
+>capture works, dropdown doesn't work yet 
