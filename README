@@ -71,3 +71,4 @@ first time, or if a page can't be scripted).
 - `popup.html/.css/.js` — the "box" UI showing captured values and the Fill button
 
 >capture works, dropdown doesn't work yet 
+>Interface pending
